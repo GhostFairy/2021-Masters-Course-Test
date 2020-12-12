@@ -2,12 +2,8 @@ import java.util.Scanner;
 
 class PlaneCube {
 
-    private String[][] planeCube;
+    private String[][] planeCube = {{"R", "R", "W"}, {"G", "C", "W"}, {"G", "B", "B"}};
     private boolean isEnd = false;
-
-    public PlaneCube(String[][] planeCube) {
-        this.planeCube = planeCube;
-    }
 
     public void print() {
         for (String[] i : this.planeCube) {
@@ -15,7 +11,6 @@ class PlaneCube {
                 System.out.print(j + " ");
             System.out.println();
         }
-
         System.out.println();
     }
 
@@ -30,160 +25,80 @@ class PlaneCube {
         scan.close();
     }
 
-    public void runCommands(String commands) {
+    private void runCommands(String commands) {
         for(int i = 0; i < commands.length(); i++) {
-            switch(commands.charAt(i)) {
-                case 'U':
-                    if(i == commands.length()-1 || commands.charAt(i+1) != '\'')
-                        shiftUpperLeft();
-                    else {
-                        shiftUpperRight();
-                        i++;
-                    }
-                    break;
-                case 'R':
-                    if(i == commands.length()-1 || commands.charAt(i+1) != '\'')
-                        shiftRightUp();
-                    else {
-                        shiftRightDown();
-                        i++;
-                    }
-                    break;
-                case 'L':
-                    if(i == commands.length()-1 || commands.charAt(i+1) != '\'')
-                        shiftLeftDown();
-                    else {
-                        shiftLeftUp();
-                        i++;
-                    }
-                    break;
-                case 'B':
-                    if(i == commands.length()-1 || commands.charAt(i+1) != '\'')
-                        shiftBottomRight();
-                    else {
-                        shiftBottomLeft();
-                        i++;
-                    }
-                    break;
-                case 'Q':
-                    System.out.println("Bye~");
-                    this.isEnd = true;
-                    return;
-                default:
+            if(commands.charAt(i) == 'Q') {
+                this.isEnd = true;
+                System.out.println("Bye~");
+                return;
             }
+
+            boolean direction = true;
+            if(i != commands.length()-1 && commands.charAt(i+1) == '\'')
+                direction = false;
+
+            if(commands.charAt(i) == 'U') {
+                System.out.print("U");
+                pushLineX(0, direction);
+            } else if(commands.charAt(i) == 'B') {
+                System.out.print("B");
+                pushLineX(2, !direction);
+            } else if(commands.charAt(i) == 'R') {
+                System.out.print("R");
+                pushLineY(2, direction);
+            } else if(commands.charAt(i) == 'L') {
+                System.out.print("L");
+                pushLineY(0, !direction);
+            } else {
+                continue;
+            }
+
+            if(direction)
+                System.out.println();
+            else
+                System.out.println("'");
+
+            print();
         }
     }
 
-    private void shiftUpperLeft() {
-        // U  가장 윗줄을 왼쪽으로 한 칸 밀기
-        System.out.println("U");
+    private void pushLineX(int line, boolean direction) {
+        if(direction) {
+            String swap = planeCube[line][0];
 
-        String swap = planeCube[0][0];
+            planeCube[line][0] = planeCube[line][1];
+            planeCube[line][1] = planeCube[line][2];
+            planeCube[line][2] = swap;
+        } else {
+            String swap = planeCube[line][2];
 
-        planeCube[0][0] = planeCube[0][1];
-        planeCube[0][1] = planeCube[0][2];
-        planeCube[0][2] = swap;
-
-        print();
+            planeCube[line][2] = planeCube[line][1];
+            planeCube[line][1] = planeCube[line][0];
+            planeCube[line][0] = swap;
+        }
     }
 
-    private void shiftUpperRight() {
-        // U' 가장 윗줄을 오른쪽으로 한 칸 밀기
-        System.out.println("U'");
+    private void pushLineY(int line, boolean direction) {
+        if(direction) {
+            String swap = planeCube[0][line];
 
-        String swap = planeCube[0][2];
+            planeCube[0][line] = planeCube[1][line];
+            planeCube[1][line] = planeCube[2][line];
+            planeCube[2][line] = swap;
+        } else {
+            String swap = planeCube[2][line];
 
-        planeCube[0][2] = planeCube[0][1];
-        planeCube[0][1] = planeCube[0][0];
-        planeCube[0][0] = swap;
-
-        print();
-    }
-
-    private void shiftRightUp() {
-        // R  가장 오른쪽 줄을 위로 한 칸 밀기
-        System.out.println("R");
-
-        String swap = planeCube[0][2];
-
-        planeCube[0][2] = planeCube[1][2];
-        planeCube[1][2] = planeCube[2][2];
-        planeCube[2][2] = swap;
-
-        print();
-    }
-
-    private void shiftRightDown() {
-        // R' 가장 오른쪽 줄을 아래로 한 칸 밀기
-        System.out.println("R'");
-
-        String swap = planeCube[2][2];
-
-        planeCube[2][2] = planeCube[1][2];
-        planeCube[1][2] = planeCube[0][2];
-        planeCube[0][2] = swap;
-
-        print();
-    }
-
-    private void shiftLeftDown() {
-        // L  가장 왼쪽 줄을 아래로 한 칸 밀기
-        System.out.println("L");
-
-        String swap = planeCube[2][0];
-
-        planeCube[2][0] = planeCube[1][0];
-        planeCube[1][0] = planeCube[0][0];
-        planeCube[0][0] = swap;
-
-        print();
-    }
-
-    private void shiftLeftUp() {
-        // L' 가장 왼쪽 줄을 위로 한 칸 밀기
-        System.out.println("L'");
-
-        String swap = planeCube[0][0];
-
-        planeCube[0][0] = planeCube[1][0];
-        planeCube[1][0] = planeCube[2][0];
-        planeCube[2][0] = swap;
-
-        print();
-    }
-
-    private void shiftBottomRight() {
-        // B  가장 아랫줄을 오른쪽으로 한 칸 밀기
-        System.out.println("B");
-
-        String swap = planeCube[2][2];
-
-        planeCube[2][2] = planeCube[2][1];
-        planeCube[2][1] = planeCube[2][0];
-        planeCube[2][0] = swap;
-
-        print();
-    }
-
-    private void shiftBottomLeft() {
-        // B' 가장 아랫줄을 왼쪽으로 한 칸 밀기
-        System.out.println("B'");
-
-        String swap = planeCube[2][0];
-
-        planeCube[2][0] = planeCube[2][1];
-        planeCube[2][1] = planeCube[2][2];
-        planeCube[2][2] = swap;
-
-        print();
+            planeCube[2][line] = planeCube[1][line];
+            planeCube[1][line] = planeCube[0][line];
+            planeCube[0][line] = swap;
+        }
     }
 }
 
 public class MastersCourseTest {
 
     public static void main(String[] args) {
-        PlaneCube cube = new PlaneCube(new String[][]{{"R", "R", "W"}, {"G", "C", "W"}, {"G", "B", "B"}});
-
+        PlaneCube cube = new PlaneCube();
         cube.print();
         cube.play();
     }
