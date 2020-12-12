@@ -25,13 +25,13 @@ public class MastersCourseTest {
         // L = 양의 방향, R = 음의 방향으로 처리
         // 예시> L(+)방향으로 -n번 밀어내기 = +(-n) = -n = R(-)방향으로 n번 밀어내기
         // 예시> R(-)방향으로 -n번 밀어내기 = -(-n) = +n = L(+)방향으로 n번 밀어내기
-        if(direction.toUpperCase().equals("R"))
+        if(direction.equalsIgnoreCase("R"))
             number *= -1;
-        else if(!direction.toUpperCase().equals("L"))
+        else if(!direction.equalsIgnoreCase("L"))
             return "방향이 올바르지 않습니다. L, l, R, r만 사용가능합니다.";
 
-        // L방향으로 밀어낼 경우, 밀어내고 남는 부분을 앞에 두고 밀려난 만큼을 뒤에 붙이기
-        // R방향으로 밀어낼 경우, 밀려난 만큼을 앞에 두고 밀어내고 남는 부분을 뒤에 붙이기
+        // L 방향으로 밀어낼 경우, 밀어내고 남는 부분을 앞에 두고 밀려난 만큼을 뒤에 붙이기
+        // R 방향으로 밀어낼 경우, 밀려난 만큼을 앞에 두고 밀어내고 남는 부분을 뒤에 붙이기
         if(number > 0)
             return word.substring(number) + word.substring(0, number);
         else
