@@ -1,9 +1,8 @@
 import java.util.Scanner;
 
-public class MastersCoureseTest {
+public class MastersCourseTest {
 
     public static void main(String[] args) {
-
         Scanner scan = new Scanner(System.in);
 
         String word = scan.next();
@@ -22,7 +21,6 @@ public class MastersCoureseTest {
     }
 
     public static String shiftWord(String word, int number, String direction) {
-
         // 단어 길이와 같은 횟수만큼 밀어내면 처음과 동일해지므로 과정을 생략
         number %= word.length();
 
