@@ -17,10 +17,10 @@ public class MastersCoureseTest {
 
         String direction = scan.next();
 
-        System.out.println(ShiftWord(word, number, direction));
+        System.out.println(shiftWord(word, number, direction));
     }
 
-    public static String ShiftWord(String word, int number, String direction) {
+    public static String shiftWord(String word, int number, String direction) {
 
         // 단어 길이와 같은 횟수만큼 밀어내면 처음과 동일해지므로 과정을 생략
         number %= word.length();
