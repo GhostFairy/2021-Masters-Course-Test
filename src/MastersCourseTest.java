@@ -2,14 +2,14 @@ import java.util.Scanner;
 
 class PlaneCube {
 
-    String[][] planeCube;
+    private String[][] planeCube;
     boolean isEnd = false;
 
     public PlaneCube(String[][] planeCube) {
         this.planeCube = planeCube;
     }
 
-    public void printCube() {
+    public void print() {
         for (String[] i : this.planeCube) {
             for (String j : i)
                 System.out.print(j + " ");
@@ -19,7 +19,7 @@ class PlaneCube {
         System.out.println();
     }
 
-    public void playCube(String commands) {
+    public void play(String commands) {
         for(int i = 0; i < commands.length(); i++) {
             switch(commands.charAt(i)) {
                 case 'U':
@@ -63,7 +63,7 @@ class PlaneCube {
         }
     }
 
-    void shiftUpperLeft() {
+    private void shiftUpperLeft() {
         // U  가장 윗줄을 왼쪽으로 한 칸 밀기
         System.out.println("U");
 
@@ -73,10 +73,10 @@ class PlaneCube {
         planeCube[0][1] = planeCube[0][2];
         planeCube[0][2] = swap;
 
-        printCube();
+        print();
     }
 
-    void shiftUpperRight() {
+    private void shiftUpperRight() {
         // U' 가장 윗줄을 오른쪽으로 한 칸 밀기
         System.out.println("U'");
 
@@ -86,10 +86,10 @@ class PlaneCube {
         planeCube[0][1] = planeCube[0][0];
         planeCube[0][0] = swap;
 
-        printCube();
+        print();
     }
 
-    void shiftRightUp() {
+    private void shiftRightUp() {
         // R  가장 오른쪽 줄을 위로 한 칸 밀기
         System.out.println("R");
 
@@ -99,10 +99,10 @@ class PlaneCube {
         planeCube[1][2] = planeCube[2][2];
         planeCube[2][2] = swap;
 
-        printCube();
+        print();
     }
 
-    void shiftRightDown() {
+    private void shiftRightDown() {
         // R' 가장 오른쪽 줄을 아래로 한 칸 밀기
         System.out.println("R'");
 
@@ -112,10 +112,10 @@ class PlaneCube {
         planeCube[1][2] = planeCube[0][2];
         planeCube[0][2] = swap;
 
-        printCube();
+        print();
     }
 
-    void shiftLeftDown() {
+    private void shiftLeftDown() {
         // L  가장 왼쪽 줄을 아래로 한 칸 밀기
         System.out.println("L");
 
@@ -125,10 +125,10 @@ class PlaneCube {
         planeCube[1][0] = planeCube[0][0];
         planeCube[0][0] = swap;
 
-        printCube();
+        print();
     }
 
-    void shiftLeftUp() {
+    private void shiftLeftUp() {
         // L' 가장 왼쪽 줄을 위로 한 칸 밀기
         System.out.println("L'");
 
@@ -138,10 +138,10 @@ class PlaneCube {
         planeCube[1][0] = planeCube[2][0];
         planeCube[2][0] = swap;
 
-        printCube();
+        print();
     }
 
-    void shiftBottomRight() {
+    private void shiftBottomRight() {
         // B  가장 아랫줄을 오른쪽으로 한 칸 밀기
         System.out.println("B");
 
@@ -151,10 +151,10 @@ class PlaneCube {
         planeCube[2][1] = planeCube[2][0];
         planeCube[2][0] = swap;
 
-        printCube();
+        print();
     }
 
-    void shiftBottomLeft() {
+    private void shiftBottomLeft() {
         // B' 가장 아랫줄을 왼쪽으로 한 칸 밀기
         System.out.println("B'");
 
@@ -164,7 +164,7 @@ class PlaneCube {
         planeCube[2][1] = planeCube[2][2];
         planeCube[2][2] = swap;
 
-        printCube();
+        print();
     }
 }
 
@@ -172,13 +172,13 @@ public class MastersCourseTest {
 
     public static void main(String[] args) {
         PlaneCube cube = new PlaneCube(new String[][]{{"R", "R", "W"}, {"G", "C", "W"}, {"G", "B", "B"}});
-        cube.printCube();
+        cube.print();
 
         Scanner scan = new Scanner(System.in);
         while(!cube.isEnd) {
             System.out.print("CUBE> ");
 
-            cube.playCube(scan.nextLine());
+            cube.play(scan.nextLine());
         }
 
         scan.close();
