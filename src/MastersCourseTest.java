@@ -23,7 +23,7 @@ class PlaneCube {
     }
 }
 
-public class MastersCoureseTest {
+public class MastersCourseTest {
 
     public static void main(String[] args) {
         PlaneCube cube = new PlaneCube(new String[][]{{"R", "R", "W"}, {"G", "C", "W"}, {"G", "B", "B"}});
