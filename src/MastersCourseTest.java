@@ -3,7 +3,7 @@ import java.util.Scanner;
 class PlaneCube {
 
     private String[][] planeCube = {{"R", "R", "W"}, {"G", "C", "W"}, {"G", "B", "B"}};
-    private boolean isEnd = false;
+    private boolean isEnd = false;  // 종료 판정용 flag
 
     public void print() {
         for (String[] i : this.planeCube) {
@@ -33,6 +33,8 @@ class PlaneCube {
                 return;
             }
 
+            // U(왼쪽), R(위쪽)을 정방향(true)로 설정, 역방향(')인 경우 false
+            // B, L 명령어는 U, R과 방향이 반대이므로 !(not)으로 반전하여 넘겨줌
             boolean direction = true;
             if(i != commands.length()-1 && commands.charAt(i+1) == '\'')
                 direction = false;
@@ -53,6 +55,7 @@ class PlaneCube {
                 continue;
             }
 
+            // 역방향인 경우 '를 출력
             if(direction)
                 System.out.println();
             else
