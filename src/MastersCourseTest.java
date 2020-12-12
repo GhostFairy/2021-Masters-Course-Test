@@ -41,16 +41,16 @@ class PlaneCube {
 
             if(commands.charAt(i) == 'U') {
                 System.out.print("U");
-                pushLineX(0, direction);
+                this.pushLineX(0, direction);
             } else if(commands.charAt(i) == 'B') {
                 System.out.print("B");
-                pushLineX(2, !direction);
+                this.pushLineX(2, !direction);
             } else if(commands.charAt(i) == 'R') {
                 System.out.print("R");
-                pushLineY(2, direction);
+                this.pushLineY(2, direction);
             } else if(commands.charAt(i) == 'L') {
                 System.out.print("L");
-                pushLineY(0, !direction);
+                this.pushLineY(0, !direction);
             } else {
                 continue;
             }
@@ -61,39 +61,39 @@ class PlaneCube {
             else
                 System.out.println("'");
 
-            print();
+            this.print();
         }
     }
 
     private void pushLineX(int line, boolean direction) {
         if(direction) {
-            String swap = planeCube[line][0];
+            String swap = this.planeCube[line][0];
 
-            planeCube[line][0] = planeCube[line][1];
-            planeCube[line][1] = planeCube[line][2];
-            planeCube[line][2] = swap;
+            this.planeCube[line][0] = this.planeCube[line][1];
+            this.planeCube[line][1] = this.planeCube[line][2];
+            this.planeCube[line][2] = swap;
         } else {
-            String swap = planeCube[line][2];
+            String swap = this.planeCube[line][2];
 
-            planeCube[line][2] = planeCube[line][1];
-            planeCube[line][1] = planeCube[line][0];
-            planeCube[line][0] = swap;
+            this.planeCube[line][2] = this.planeCube[line][1];
+            this.planeCube[line][1] = this.planeCube[line][0];
+            this.planeCube[line][0] = swap;
         }
     }
 
     private void pushLineY(int line, boolean direction) {
         if(direction) {
-            String swap = planeCube[0][line];
+            String swap = this.planeCube[0][line];
 
-            planeCube[0][line] = planeCube[1][line];
-            planeCube[1][line] = planeCube[2][line];
-            planeCube[2][line] = swap;
+            this.planeCube[0][line] = this.planeCube[1][line];
+            this.planeCube[1][line] = this.planeCube[2][line];
+            this.planeCube[2][line] = swap;
         } else {
-            String swap = planeCube[2][line];
+            String swap = this.planeCube[2][line];
 
-            planeCube[2][line] = planeCube[1][line];
-            planeCube[1][line] = planeCube[0][line];
-            planeCube[0][line] = swap;
+            this.planeCube[2][line] = this.planeCube[1][line];
+            this.planeCube[1][line] = this.planeCube[0][line];
+            this.planeCube[0][line] = swap;
         }
     }
 }
