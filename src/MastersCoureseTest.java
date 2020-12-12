@@ -16,6 +16,7 @@ public class MastersCoureseTest {
         int number = scan.nextInt();
 
         String direction = scan.next();
+        scan.close();
 
         System.out.println(shiftWord(word, number, direction));
     }
