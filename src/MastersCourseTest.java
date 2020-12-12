@@ -3,7 +3,7 @@ import java.util.Scanner;
 class PlaneCube {
 
     private String[][] planeCube;
-    boolean isEnd = false;
+    private boolean isEnd = false;
 
     public PlaneCube(String[][] planeCube) {
         this.planeCube = planeCube;
@@ -19,7 +19,18 @@ class PlaneCube {
         System.out.println();
     }
 
-    public void play(String commands) {
+    public void play() {
+        Scanner scan = new Scanner(System.in);
+
+        while(!this.isEnd) {
+            System.out.print("CUBE> ");
+            this.runCommands(scan.nextLine());
+        }
+
+        scan.close();
+    }
+
+    public void runCommands(String commands) {
         for(int i = 0; i < commands.length(); i++) {
             switch(commands.charAt(i)) {
                 case 'U':
@@ -172,15 +183,8 @@ public class MastersCourseTest {
 
     public static void main(String[] args) {
         PlaneCube cube = new PlaneCube(new String[][]{{"R", "R", "W"}, {"G", "C", "W"}, {"G", "B", "B"}});
+
         cube.print();
-
-        Scanner scan = new Scanner(System.in);
-        while(!cube.isEnd) {
-            System.out.print("CUBE> ");
-
-            cube.play(scan.nextLine());
-        }
-
-        scan.close();
+        cube.play();
     }
 }
