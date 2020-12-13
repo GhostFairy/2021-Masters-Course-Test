@@ -9,12 +9,12 @@ class RubiksCube {
                                        {{"G", "G", "G"}, {"G", "G", "G"}, {"G", "G", "G"}},
                                        {{"Y", "Y", "Y"}, {"Y", "Y", "Y"}, {"Y", "Y", "Y"}},
                                        {{"R", "R", "R"}, {"R", "R", "R"}, {"R", "R", "R"}}};
-    private String[][][] originalCubeState = {{{"B", "B", "B"}, {"B", "B", "B"}, {"B", "B", "B"}},
-                                              {{"W", "W", "W"}, {"W", "W", "W"}, {"W", "W", "W"}},
-                                              {{"O", "O", "O"}, {"O", "O", "O"}, {"O", "O", "O"}},
-                                              {{"G", "G", "G"}, {"G", "G", "G"}, {"G", "G", "G"}},
-                                              {{"Y", "Y", "Y"}, {"Y", "Y", "Y"}, {"Y", "Y", "Y"}},
-                                              {{"R", "R", "R"}, {"R", "R", "R"}, {"R", "R", "R"}}};
+    private final String[][][] originalCubeState = {{{"B", "B", "B"}, {"B", "B", "B"}, {"B", "B", "B"}},
+                                                    {{"W", "W", "W"}, {"W", "W", "W"}, {"W", "W", "W"}},
+                                                    {{"O", "O", "O"}, {"O", "O", "O"}, {"O", "O", "O"}},
+                                                    {{"G", "G", "G"}, {"G", "G", "G"}, {"G", "G", "G"}},
+                                                    {{"Y", "Y", "Y"}, {"Y", "Y", "Y"}, {"Y", "Y", "Y"}},
+                                                    {{"R", "R", "R"}, {"R", "R", "R"}, {"R", "R", "R"}}};
     private boolean isEnd = false;  // 종료 판정용 flag
     private int countCommands = 0;
     private final long initTime = System.currentTimeMillis();
