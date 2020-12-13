@@ -10,6 +10,7 @@ class RubiksCube {
                                        {{"R", "R", "R"}, {"R", "R", "R"}, {"R", "R", "R"}}};
     private boolean isEnd = false;  // 종료 판정용 flag
     private int countCommands = 0;
+    private long initTime = System.currentTimeMillis();
 
     public void print() {
         // 큐브의 면을 각각의 방향에 맞게 회전해서 출력
@@ -56,8 +57,12 @@ class RubiksCube {
             System.out.print("CUBE> ");
             this.runCommands(scan.nextLine(), false);
         }
-
         scan.close();
+
+        long elapsedTime = (System.currentTimeMillis() - this.initTime)/1000;
+        System.out.printf("경과시간: %02d:%02d\n", elapsedTime/60, elapsedTime%60);
+        System.out.println("조작갯수: " + this.countCommands);
+        System.out.println("이용해주셔서 감사합니다. 뚜뚜뚜.");
     }
 
     public void shuffle() {
@@ -75,8 +80,6 @@ class RubiksCube {
         for(int i = 0; i < commands.length(); i++) {
             if(commands.charAt(i) == 'Q') {
                 this.isEnd = true;
-                System.out.println("조작갯수: " + this.countCommands);
-                System.out.println("이용해주셔서 감사합니다. 뚜뚜뚜.");
                 return;
             }
 
@@ -109,15 +112,16 @@ class RubiksCube {
                 continue;
             }
 
-            if(!mute) {
-                if(direction == 1)
-                    System.out.println(commands.charAt(i));
-                else
-                    // 반시계 방향 90도 회전인 경우 ', 180도 회전인 경우 2를 추가로 출력
-                    System.out.println(commands.charAt(i) + "" + commands.charAt(++i));
+            // mute 상태일 경우 명령어와 큐브의 상태를 출력하는 아래의 구문을 실행하지 않음
+            if(mute)
+                continue;
 
-                this.print();
-            }
+            if(direction == 1)
+                System.out.println(commands.charAt(i));
+            else
+                // 반시계 방향 90도 회전인 경우 ', 180도 회전인 경우 2를 추가로 출력
+                System.out.println(commands.charAt(i) + "" + commands.charAt(++i));
+            this.print();
         }
     }
 
