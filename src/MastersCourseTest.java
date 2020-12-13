@@ -4,6 +4,7 @@ public class MastersCourseTest {
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
+        System.out.print("> ");
         String word = scan.next();
 
         if(!scan.hasNextInt()) {
