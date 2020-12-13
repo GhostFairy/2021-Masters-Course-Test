@@ -69,33 +69,25 @@ class RubiksCube {
             System.out.print("CUBE> ");
             String commands = scan.nextLine();
 
-            for(int i = 0; i < commands.length(); i++) {
-                // 시계 방향 90도 회전 = 1, 반시계 방향 90도 회전 = -1, 180도 회전 = 2로 설정
-                int direction = 1;
-                if(i != commands.length()-1 && commands.charAt(i+1) == '\'')
-                    direction = -1;
-                else if(i != commands.length()-1 && commands.charAt(i+1) == '2')
-                    direction = 2;
-
-                this.runCommands(commands.charAt(i), direction, false);
+            for(int i = 0; i < commands.length()-1; i++) {
+                int direction = parseDirection(commands.charAt(i+1));
+                this.runCommand(commands.charAt(i), direction, false);
             }
+
+            this.runCommand(commands.charAt(commands.length()-1), 1, false);
         }
         scan.close();
         this.endPlay();
     }
 
-    public void shuffle() {
-        String availableCommands = "FRUBLD";
-        int[] availableDirection = {-1, 1, 2};
-
-        for(int i = 0; i < 50; i++) {
-            char command = availableCommands.charAt((int) (Math.random() * 6));
-            int direction = availableDirection[(int) (Math.random() * 3)];
-
-            this.runCommands(command, direction, true);
-        }
-
-        this.countCommands = 0;
+    private int parseDirection(char nextChar) {
+        // 시계 방향 90도 회전 = 1, 반시계 방향 90도 회전 = -1, 180도 회전 = 2로 설정
+        if(nextChar == '\'')
+            return -1;
+        else if(nextChar == '2')
+            return 2;
+        else
+            return 1;
     }
 
     private void endPlay() {
@@ -105,7 +97,21 @@ class RubiksCube {
         System.out.println("이용해주셔서 감사합니다. 뚜뚜뚜.");
     }
 
-    private void runCommands(char command, int direction, boolean mute) {
+    public void shuffle() {
+        String availableCommands = "FRUBLD";
+        int[] availableDirection = {-1, 1, 2};
+
+        for(int i = 0; i < 100; i++) {
+            char command = availableCommands.charAt((int) (Math.random() * 6));
+            int direction = availableDirection[(int) (Math.random() * 3)];
+
+            this.runCommand(command, direction, true);
+        }
+
+        this.countCommands = 0;
+    }
+
+    private void runCommand(char command, int direction, boolean mute) {
         if(command == 'Q') {
             this.isEnd = true; return; }
         else if(command == 'F')
@@ -120,8 +126,8 @@ class RubiksCube {
             this.rotateFace(1, 4, 2, 0, 5, direction);
         else if(command == 'B')
             this.rotateFace(4, 1, 3, 5, 0, direction);
-        else
-            return;
+        else return;
+
         this.countCommands += Math.abs(direction);
         this.printCommand(command, direction, mute);
 
