@@ -7,10 +7,14 @@ public class MastersCourseTest {
         String word = scan.next();
 
         if(!scan.hasNextInt()) {
-            System.out.println("밀어낼 횟수가 올바르지 않습니다. 정수만 사용가능합니다.");
+            System.out.println("밀어낼 횟수가 올바르지 않습니다. -100 ~ 99 사이의 정수만 사용가능합니다.");
             return;
         }
         int number = scan.nextInt();
+        if((number < -100) || (number > 99)) {
+            System.out.println("밀어낼 횟수가 올바르지 않습니다. -100 ~ 99 사이의 정수만 사용가능합니다.");
+            return;
+        }
 
         String direction = scan.next();
         scan.close();
