@@ -21,8 +21,7 @@ class RubiksCube {
 
     public void print() {
         // 큐브의 면을 각각의 방향에 맞게 회전해서 출력
-        // U(0) = ↓ = 180도 회전, L(1) = ← = 반시계 방향 90도 회전, F(2) = ↑ = 정방향
-        // R(3) = ↓ = 180도 회전, B(4) = → = 　시계 방향 90도 회전, D(5) = → = 시계 방향 90도 회전
+        // U(0) = ↓ = 180도 회전, D(5) = → = 시계 방향 90도 회전
 
         for(int i = 0; i < 3; i++) {
             System.out.print("          ");
@@ -32,6 +31,20 @@ class RubiksCube {
         }
         System.out.println();
 
+        this.printBody();
+
+        for(int i = 0; i < 3; i++) {
+            System.out.print("          ");
+            for(int j = 0; j < 3; j++)
+                System.out.print(this.rubiksCube[5][2-j][i] + " ");
+            System.out.println();
+        }
+        System.out.println();
+    }
+
+    private void printBody() {
+        // 큐브의 면을 각각의 방향에 맞게 회전해서 출력
+        // L(1) = ← = 반시계 방향 90도 회전, F(2) = ↑ = 정방향, R(3) = ↓ = 180도 회전, B(4) = → = 시계 방향 90도 회전,
         for(int i = 0; i < 3; i++) {
             for(int j = 0; j < 3; j++)
                 System.out.print(this.rubiksCube[1][j][2-i] + " ");
@@ -44,14 +57,6 @@ class RubiksCube {
             System.out.print("    ");
             for(int j = 0; j < 3; j++)
                 System.out.print(this.rubiksCube[4][2-j][i] + " ");
-            System.out.println();
-        }
-        System.out.println();
-
-        for(int i = 0; i < 3; i++) {
-            System.out.print("          ");
-            for(int j = 0; j < 3; j++)
-                System.out.print(this.rubiksCube[5][2-j][i] + " ");
             System.out.println();
         }
         System.out.println();
