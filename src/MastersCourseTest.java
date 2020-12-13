@@ -55,10 +55,10 @@ class PlaneCube {
                 continue;
             }
 
-            // 역방향인 경우 '를 출력
             if(direction)
                 System.out.println();
             else
+                // 역방향인 경우 '를 추가로 출력
                 System.out.println("'");
 
             this.print();
