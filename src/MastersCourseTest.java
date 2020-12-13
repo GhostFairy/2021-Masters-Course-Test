@@ -54,13 +54,24 @@ class RubiksCube {
 
         while(!this.isEnd) {
             System.out.print("CUBE> ");
-            this.runCommands(scan.nextLine());
+            this.runCommands(scan.nextLine(), false);
         }
 
         scan.close();
     }
 
-    private void runCommands(String commands) {
+    public void shuffle() {
+        String availableCommands = "FRUBLD'2";
+        StringBuilder commands = new StringBuilder();
+
+        for(int i = 0; i < 100; i++)
+            commands.append(availableCommands.charAt((int)(Math.random()*8)));
+
+        this.runCommands(commands.toString(), true);
+        this.countCommands = 0;
+    }
+
+    private void runCommands(String commands, boolean mute) {
         for(int i = 0; i < commands.length(); i++) {
             if(commands.charAt(i) == 'Q') {
                 this.isEnd = true;
@@ -77,42 +88,36 @@ class RubiksCube {
                 direction = 2;
 
             if(commands.charAt(i) == 'F') {
-                System.out.print("F");
                 this.rotateFace(2, 0, 5, 3, 1, direction);
                 this.countCommands += Math.abs(direction);
             } else if(commands.charAt(i) == 'R') {
-                System.out.print("R");
                 this.rotateFace(3, 5, 0, 2, 4, direction);
                 this.countCommands += Math.abs(direction);
             } else if(commands.charAt(i) == 'U') {
-                System.out.print("U");
                 this.rotateFace(0, 2, 4, 1, 3, direction);
                 this.countCommands += Math.abs(direction);
             } else if(commands.charAt(i) == 'D') {
-                System.out.print("D");
                 this.rotateFace(5, 3, 1, 4, 2, direction);
                 this.countCommands += Math.abs(direction);
             } else if(commands.charAt(i) == 'L') {
-                System.out.print("L");
                 this.rotateFace(1, 4, 2, 0, 5, direction);
                 this.countCommands += Math.abs(direction);
             } else if(commands.charAt(i) == 'B') {
-                System.out.print("B");
                 this.rotateFace(4, 1, 3, 5, 0, direction);
                 this.countCommands += Math.abs(direction);
             } else {
                 continue;
             }
 
-            // 반시계 방향 90도 회전인 경우 ', 180도 회전인 경우 2를 출력
-            if(direction == 1)
-                System.out.println();
-            else if(direction == -1)
-                System.out.println("'");
-            else
-                System.out.println("2");
+            if(!mute) {
+                if(direction == 1)
+                    System.out.println(commands.charAt(i));
+                else
+                    // 반시계 방향 90도 회전인 경우 ', 180도 회전인 경우 2를 추가로 출력
+                    System.out.println(commands.charAt(i) + "" + commands.charAt(++i));
 
-            this.print();
+                this.print();
+            }
         }
     }
 
@@ -151,19 +156,23 @@ class RubiksCube {
     }
 
     private void rotateCW(int targetFace) {
-        String[][] swapFace = this.rubiksCube[targetFace].clone();
+        String[][] swapFace = new String[3][3];
+        for(int i = 0; i < 3; i++)
+            swapFace[i] = this.rubiksCube[targetFace][i].clone();
 
         for(int i = 0; i < 3; i++)
             for(int j = 0; j < 3; j++)
-                this.rubiksCube[targetFace][j][2-i] = swapFace[i][j];
+                this.rubiksCube[targetFace][i][j] = swapFace[2-j][i];
     }
     
     private void rotateCCW(int targetFace) {
-        String[][] swapFace = this.rubiksCube[targetFace].clone();
+        String[][] swapFace = new String[3][3];
+        for(int i = 0; i < 3; i++)
+            swapFace[i] = this.rubiksCube[targetFace][i].clone();
 
         for(int i = 0; i < 3; i++)
             for(int j = 0; j < 3; j++)
-                this.rubiksCube[targetFace][2-j][i] = swapFace[i][j];
+                this.rubiksCube[targetFace][i][j] = swapFace[j][2-i];
     }
 }
 
@@ -171,6 +180,7 @@ public class MastersCourseTest {
 
     public static void main(String[] args) {
         RubiksCube cube = new RubiksCube();
+        cube.shuffle();
         cube.print();
         cube.play();
     }
