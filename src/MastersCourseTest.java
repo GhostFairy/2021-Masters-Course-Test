@@ -3,16 +3,50 @@ import java.util.Scanner;
 class RubiksCube {
 
     private String[][][] rubiksCube = {{{"B", "B", "B"}, {"B", "B", "B"}, {"B", "B", "B"}},
-            {{"W", "W", "W"}, {"W", "W", "W"}, {"W", "W", "W"}},
-            {{"O", "O", "O"}, {"O", "O", "O"}, {"O", "O", "O"}},
-            {{"G", "G", "G"}, {"G", "G", "G"}, {"G", "G", "G"}},
-            {{"Y", "Y", "Y"}, {"Y", "Y", "Y"}, {"Y", "Y", "Y"}},
-            {{"R", "R", "R"}, {"R", "R", "R"}, {"R", "R", "R"}}};
+                                       {{"W", "W", "W"}, {"W", "W", "W"}, {"W", "W", "W"}},
+                                       {{"O", "O", "O"}, {"O", "O", "O"}, {"O", "O", "O"}},
+                                       {{"G", "G", "G"}, {"G", "G", "G"}, {"G", "G", "G"}},
+                                       {{"Y", "Y", "Y"}, {"Y", "Y", "Y"}, {"Y", "Y", "Y"}},
+                                       {{"R", "R", "R"}, {"R", "R", "R"}, {"R", "R", "R"}}};
     private boolean isEnd = false;  // 종료 판정용 flag
     private int countCommands = 0;
 
     public void print() {
-        // TO DO: 큐브의 면을 각각의 방향에 맞게 회전해서 출력
+        // 큐브의 면을 각각의 방향에 맞게 회전해서 출력
+        // U(0) = ↓ = 180도 회전, L(1) = ← = 반시계 방향 90도 회전, F(2) = ↑ = 정방향
+        // R(3) = ↓ = 180도 회전, B(4) = → = 　시계 방향 90도 회전, D(5) = → = 시계 방향 90도 회전
+
+        for(int i = 0; i < 3; i++) {
+            System.out.print("          ");
+            for(int j = 0; j < 3; j++)
+                System.out.print(this.rubiksCube[0][2-i][2-j] + " ");
+            System.out.println();
+        }
+        System.out.println();
+
+        for(int i = 0; i < 3; i++) {
+            for(int j = 0; j < 3; j++)
+                System.out.print(this.rubiksCube[1][j][2-i] + " ");
+            System.out.print("    ");
+            for(int j = 0; j < 3; j++)
+                System.out.print(this.rubiksCube[2][i][j] + " ");
+            System.out.print("    ");
+            for(int j = 0; j < 3; j++)
+                System.out.print(this.rubiksCube[3][2-i][2-j] + " ");
+            System.out.print("    ");
+            for(int j = 0; j < 3; j++)
+                System.out.print(this.rubiksCube[4][2-j][i] + " ");
+            System.out.println();
+        }
+        System.out.println();
+
+        for(int i = 0; i < 3; i++) {
+            System.out.print("          ");
+            for(int j = 0; j < 3; j++)
+                System.out.print(this.rubiksCube[5][2-j][i] + " ");
+            System.out.println();
+        }
+        System.out.println();
     }
 
     public void play() {
@@ -86,13 +120,11 @@ class RubiksCube {
         if(direction == 0)
             return;
 
-        String[] swapSide = new String[3];
+        String[] swapSide = this.rubiksCube[topSide][0].clone();
 
-        if(direction > 1) {
+        if(direction > 0) {
             this.rotateCW(targetFace);
 
-            for(int i = 0; i < 3; i++)
-                swapSide[i] = this.rubiksCube[topSide][0][i];
             for(int i = 0; i < 3; i++)
                 this.rubiksCube[topSide][0][i] = this.rubiksCube[bottomSide][2][2-i];
             for(int i = 0; i < 3; i++)
@@ -108,8 +140,6 @@ class RubiksCube {
             this.rotateCCW(targetFace);
 
             for(int i = 0; i < 3; i++)
-                swapSide[i] = this.rubiksCube[topSide][0][i];
-            for(int i = 0; i < 3; i++)
                 this.rubiksCube[topSide][0][i] = this.rubiksCube[rightSide][i][2];
             for(int i = 0; i < 3; i++)
                 this.rubiksCube[rightSide][i][2] = this.rubiksCube[leftSide][2-i][0];
@@ -121,7 +151,7 @@ class RubiksCube {
     }
 
     private void rotateCW(int targetFace) {
-        String[][] swapFace = this.rubiksCube[targetFace];
+        String[][] swapFace = this.rubiksCube[targetFace].clone();
 
         for(int i = 0; i < 3; i++)
             for(int j = 0; j < 3; j++)
@@ -129,7 +159,7 @@ class RubiksCube {
     }
     
     private void rotateCCW(int targetFace) {
-        String[][] swapFace = this.rubiksCube[targetFace];
+        String[][] swapFace = this.rubiksCube[targetFace].clone();
 
         for(int i = 0; i < 3; i++)
             for(int j = 0; j < 3; j++)
